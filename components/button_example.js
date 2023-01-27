@@ -1,34 +1,11 @@
-import React from "react"
-import { Dimensions, StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native'
+import React from 'react'
+import { Text, TouchableOpacity } from 'react-native'
 
-
-class ButtonExample extends React.Component{
-    render(){
-        return(
-
-            <View style = {styles.container}>
-         <TouchableNativeFeedback>
-            <Text style = {styles.text}>
-               Button
-            </Text>
-         </TouchableNativeFeedback>
-      </View>
-
-        )
-    }
+export default function ButtonWidget
+   ({ bgColor, btnLabel, textColor, onpress }) {
+   return (
+      <TouchableOpacity onPress={onpress} style={{ backgroundColor: bgColor, borderRadius: 100, alignItems: 'center', width: 250, paddingVertical: 10, paddingHorizontal: 30 }}>
+         <Text style={{ color: textColor, fontSize: 20, fontWeight: 'bold' }}>{btnLabel}</Text>
+      </TouchableOpacity>
+   )
 }
-
-
-export default ButtonExample
-
-const styles = StyleSheet.create ({
-   container: {height: Dimensions.get('window').height,
-      alignItems: 'center',justifyContent:'center'
-   },
-   text: {
-    borderWidth: 1,
-    padding: 25,
-    borderColor: 'black',
-    backgroundColor: 'red'
-   }
-})

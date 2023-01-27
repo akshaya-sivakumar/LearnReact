@@ -1,5 +1,5 @@
 import React from 'react';
-import Inputs from './components/inputs';
+import LoginPage from './lib/pages/login';
 
 
  class App extends React.Component {
@@ -26,10 +26,11 @@ import Inputs from './components/inputs';
 
   
    render() {
+     
       return (
          //<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#00BCD4" translucent = {true}/>
         //<GeolocationExample/>
-        <Inputs/>
+        <LoginPage/>
       );
    } 
 }

@@ -1,75 +1,79 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-class Inputs extends Component{
+
+class Inputs extends Component {
 
     state = {
         email: '',
-        password: ''
-     }
+        password: '',
+       
+    }
 
-handleMail=(text)=>{
+    handleMail = (text) => {
 
-    this.setState({email:text})
+        this.setState({ email: text })
 
-}
+    }
 
-handlePassword=(text)=>{
-    this.setState({password:text})
-}
+    handlePassword = (text) => {
+        this.setState({ password: text })
+    }
 
-submit=(email,pwd)=>{
-    console.warn(email);
-    alert('email: ' + email + ' password: ' + pwd)
-}
+    submit = (email, pwd) => {
+        
+
+    }
 
 
 
-    render(){
+    render() {
         return (
-          
-            <View style={styles.container}>
-                <TextInput style={styles.input}
-                
-                underlineColorAndroid = "transparent"
-                placeholder = "Email"
-                placeholderTextColor = "#9a73ef"
-                autoCapitalize = "none"
-                onChangeText={this.handleMail}
-                
-                >
+
+         
+
+                <View style={styles.container}>
+                    <TextInput style={styles.input}
+
+                        underlineColorAndroid="transparent"
+                        placeholder="Email"
+                        placeholderTextColor="#9a73ef"
+                        autoCapitalize="none"
+                        onChangeText={this.handleMail}
+
+                    >
 
 
-                </TextInput>
+                    </TextInput>
 
-                <TextInput 
-                 underlineColorAndroid = "transparent"
-                 placeholder = "Password"
-                 placeholderTextColor = "#9a73ef"
-                 autoCapitalize = "none"
-                 onChangeText={this.handlePassword}
-                
-                style={styles.input}>
+                    <TextInput
+                        underlineColorAndroid="transparent"
+                        placeholder="Password"
+                        placeholderTextColor="#9a73ef"
+                        autoCapitalize="none"
+                        onChangeText={this.handlePassword}
 
-                    
-                </TextInput>
-                <TouchableOpacity style={styles.submitButton}
-                
-
-                onPress = {
-                    () => this.submit(this.state.email, this.state.password)
-                 }
-                >
-                  <Text style={styles.submitButtonText}
-                 
-                  
-                  >Submit </Text>
+                        style={styles.input}>
 
 
-                </TouchableOpacity>
+                    </TextInput>
+                    <TouchableOpacity style={styles.submitButton}
+
+
+                        onPress={
+                            () => this.submit(this.state.email, this.state.password)
+                        }
+                    >
+                        <Text style={styles.submitButtonText}
+
+
+                        >Submit </Text>
+
+
+                    </TouchableOpacity>
 
                 </View>
-              
+
         )
     }
 }
@@ -80,23 +84,24 @@ export default Inputs
 
 const styles = StyleSheet.create({
     container: {
-       paddingTop: 50
+        paddingTop: 50
     },
     input: {
-        padding:6,
-       margin: 15,
-       height: 40,
-       borderColor: '#7a42f4',
-       borderWidth: 1
+        padding: 6,
+        margin: 15,
+        height: 40,
+        borderColor: '#7a42f4',
+        borderWidth: 1
     },
-    submitButton: {alignItems:"center",
-       
-       backgroundColor: '#7a42f4',
-       padding: 10,
-       margin: 15,
-       height: 40,
+    submitButton: {
+        alignItems: "center",
+
+        backgroundColor: '#7a42f4',
+        padding: 10,
+        margin: 15,
+        height: 40,
     },
-    submitButtonText:{
-       color: 'white'
+    submitButtonText: {
+        color: 'white'
     }
- })
+})
