@@ -1,12 +1,38 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { LayoutAnimation, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ExpandableComponent from '../widgets/expandable';
 
+interface Data {
+    baseSym: string;
+    companyName: string;
+    dispSym: string;
+    excToken: string;
+    haircut: string;
+    isin: string;
+    mCap: string;
+    sector: string;
+    sym: {
+        asset: string;
+        exc: string;
+        expiry: string;
+        id: string;
+        instrument: string;
+        lotSize: string;
+        multiplier: string;
+        optionType: string;
+        streamSym: string;
+        strike: string;
+        tickSize: string;
+    };
+    tt_eligibility: boolean;
+}
 
-const Watchlist: React.FC = () => {
 
-    const [watchlist, setWatchlist] = React.useState([
+const Watchlist: React.FC<Data> = () => {
+
+    const watchlist: Data[] = [
         {
             "baseSym": "KNRCON",
             "companyName": "KNR CONSTRU LTD.",
@@ -30,7 +56,7 @@ const Watchlist: React.FC = () => {
                 "tickSize": "0.05"
             },
             "tt_eligibility": false,
-            "expanded": false
+
         },
         {
             "baseSym": "SINTEXPLAST",
@@ -55,7 +81,7 @@ const Watchlist: React.FC = () => {
                 "tickSize": "0.01"
             },
             "tt_eligibility": false,
-            "expanded": false
+
         },
         {
             "baseSym": "INTELSOFT",
@@ -80,7 +106,7 @@ const Watchlist: React.FC = () => {
                 "tickSize": "0.05"
             },
             "tt_eligibility": true,
-            "expanded": false
+
         },
         {
             "baseSym": "GICHSGFIN",
@@ -105,7 +131,7 @@ const Watchlist: React.FC = () => {
                 "tickSize": "0.05"
             },
             "tt_eligibility": false,
-            "expanded": false
+
         },
         {
             "baseSym": "IBULHSGFIN",
@@ -130,7 +156,7 @@ const Watchlist: React.FC = () => {
                 "tickSize": "0.05"
             },
             "tt_eligibility": false,
-            "expanded": false
+
         },
         {
             "baseSym": "BERGEPAINT",
@@ -155,7 +181,7 @@ const Watchlist: React.FC = () => {
                 "tickSize": "0.05"
             },
             "tt_eligibility": false,
-            "expanded": false
+
         },
         {
             "baseSym": "BAJFINANCE",
@@ -180,7 +206,7 @@ const Watchlist: React.FC = () => {
                 "tickSize": "0.05"
             },
             "tt_eligibility": false,
-            "expanded": false
+
         },
         {
             "baseSym": "PIIND",
@@ -205,7 +231,7 @@ const Watchlist: React.FC = () => {
                 "tickSize": "0.05"
             },
             "tt_eligibility": false,
-            "expanded": false
+
         },
         {
             "baseSym": "TCS",
@@ -230,7 +256,7 @@ const Watchlist: React.FC = () => {
                 "tickSize": "0.05"
             },
             "tt_eligibility": false,
-            "expanded": false
+
         },
         {
             "baseSym": "WIPRO",
@@ -255,7 +281,7 @@ const Watchlist: React.FC = () => {
                 "tickSize": "0.05"
             },
             "tt_eligibility": false,
-            "expanded": false
+
         },
         {
             "baseSym": "SBICARD",
@@ -280,7 +306,7 @@ const Watchlist: React.FC = () => {
                 "tickSize": "0.05"
             },
             "tt_eligibility": false,
-            "expanded": false
+
         },
         {
             "baseSym": "LEMONTREE",
@@ -305,7 +331,7 @@ const Watchlist: React.FC = () => {
                 "tickSize": "0.05"
             },
             "tt_eligibility": false,
-            "expanded": false
+
         },
         {
             "baseSym": "NATURAL",
@@ -330,7 +356,7 @@ const Watchlist: React.FC = () => {
                 "tickSize": "0.01"
             },
             "tt_eligibility": false,
-            "expanded": false
+
         },
         {
             "baseSym": "TATAMOTORS",
@@ -355,7 +381,7 @@ const Watchlist: React.FC = () => {
                 "tickSize": "0.05"
             },
             "tt_eligibility": false,
-            "expanded": false
+
         },
         {
             "baseSym": "SBIN",
@@ -380,7 +406,7 @@ const Watchlist: React.FC = () => {
                 "tickSize": "0.05"
             },
             "tt_eligibility": false,
-            "expanded": false
+
         },
         {
             "baseSym": "SBIN",
@@ -405,59 +431,35 @@ const Watchlist: React.FC = () => {
                 "tickSize": "0.05"
             },
             "tt_eligibility": false,
-            "expanded": false
-        }
-    ])
 
-    const [list, setList] = React.useState(Array(watchlist.length).fill(false).map((item) => { return { "expanded": item } }));
+        }
+    ];
+
+  
+
+
+
+    const [expanded, setExpanded] = useState<string[]>([]);
 
     function handleToggleComplete(id: any) {
-        console.warn(watchlist)
-        console.warn(list)
+        if (expanded.includes(id)) {
+            setExpanded(expanded.filter((item) => item !== id));
 
-        const newList = list.map((item, index) => {
-            if (index === id) {
-                const updatedItem = {
-                    ...item,
-                    expanded: !item.expanded,
-                };
+        } else {
+            setExpanded([...expanded, id]);
+        }
 
-                return updatedItem;
-            }
 
-            else
 
-                return item;
-        });
-
-        setList(newList);
     }
 
 
 
 
 
-    /* 
-        function handleToggleComplete(id: any) {
-            const newList = watchlist.map((item, index) => {
-                if (index === id) {
-                    const updatedItem = {
-                        ...item,
-                        expanded: !item.expanded,
-                    };
-    
-                    return updatedItem;
-                }
-    
-                return item;
-            });
-    
-            setWatchlist(newList);
-        } */
 
-    const updateLayout = (index?: any) => {
 
-    };
+
     return (
 
 
@@ -474,33 +476,19 @@ const Watchlist: React.FC = () => {
 
 
             {watchlist.map((item, index) => (
+                <View style={{ paddingHorizontal: 20 }}>
+                    <ExpandableComponent
+                        key={index}
+                        expandedList={expanded}
+                        onClickFunction={() => {
+                            console.warn(index)
+                            LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+                            handleToggleComplete(item.excToken)
 
-                <ExpandableComponent
-                    key={index}
-                    onClickFunction={() => {
-                        console.warn(index)
-                        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-                        const newList = watchlist.map((item, indexs) => {
-                            if (index === indexs) {
-                                const updatedItem = {
-                                    ...item,
-                                    expanded: !item.expanded,
-                                };
-
-                                return updatedItem;
-                            }
-
-                            else
-
-                                return item;
-                        });
-                        console.warn(newList)
-
-
-                        setWatchlist(newList);
-                    }}
-                    item={watchlist[index]}
-                />
+                        }}
+                        item={watchlist[index]}
+                    />
+                </View>
             )
 
 

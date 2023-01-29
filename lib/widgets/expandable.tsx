@@ -5,32 +5,37 @@ import { Dimensions, Text, TouchableOpacity, View } from "react-native";
 
 export type ExpandableComponentProps = {
     item: any;
+    expandedList: any;
     onClickFunction?: () => void;
 };
 
 const ExpandableComponent: React.FC<ExpandableComponentProps> = ({
-    item,
+    item, expandedList,
     onClickFunction,
 }) => {
     //Custom Component for the Expandable List
     const [layoutHeight, setLayoutHeight] = useState(0);
 
     useEffect(() => {
-        if (item.expanded) {
+        if (expandedList.includes(item.excToken)) {
             setLayoutHeight(80);
         } else {
             setLayoutHeight(0);
         }
-    }, [item.expanded]);
+    }, [expandedList]);
 
     return (
 
-        <View style={{ alignContent: "center", margin: 5 }}>
+        <View style={{
+
+
+
+        }}>
             {/*Header of the Expandable List Item*/}
             < TouchableOpacity
                 activeOpacity={0.8}
                 onPress={onClickFunction} style={{ backgroundColor: item.expanded ? 'rgba(52, 52, 52, 0.2)' : 'rgba(52, 52, 52, 0.0)', }}
-            ><View style={{ flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 5, paddingVertical: 5 }}>
+            ><View style={{ flexDirection: "row", justifyContent: "space-between", paddingVertical: 5 }}>
                     <View style={{ flexDirection: "column", width: Dimensions.get("window").width * 0.55 }}>
                         <Text style={{ fontWeight: "bold", color: "black" }}> {item.baseSym}</Text>
                         <Text style={{ paddingTop: 5 }}>{item.companyName} </Text>
@@ -39,7 +44,7 @@ const ExpandableComponent: React.FC<ExpandableComponentProps> = ({
 
                         <Text style={{ color: "#ff1493" }}>BSE </Text>
                     </View>
-                    <View style={{ flexDirection: "column", width: Dimensions.get("window").width * 0.2, alignSelf: 'flex-end', justifyContent: "flex-start", alignItems: "flex-start", alignContent: "flex-start" }}>
+                    <View style={{ flexDirection: "column", width: Dimensions.get("window").width * 0.14, alignSelf: 'flex-end', justifyContent: "flex-start", alignItems: "flex-start", alignContent: "flex-start" }}>
                         <Text style={{ color: "red", textAlign: "right" }}> {item.excToken}</Text>
                         <View style={{ flexDirection: "row", paddingTop: 5, justifyContent: "space-evenly", width: Dimensions.get("window").width * 0.2, }}>
                             <Text style={{ color: "orange" }}>{item.haircut} </Text>
@@ -64,16 +69,16 @@ const ExpandableComponent: React.FC<ExpandableComponentProps> = ({
                 }}>
                 {/*Content under the header of the Expandable List Item*/}
 
-                <TouchableOpacity style={{ paddingVertical: 5, backgroundColor: 'rgba(52, 52, 52, 0.2)', paddingHorizontal: 5 }}
+                <TouchableOpacity style={{ paddingVertical: 5, backgroundColor: 'rgba(52, 52, 52, 0.2)', }}
 
                     onPress={
                         () => { }
                     }>
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", paddingVertical: 10 }}>
-                        <TouchableOpacity onPress={() => { }} style={{ backgroundColor: "green", borderRadius: 10, alignItems: 'center', width: 100, paddingVertical: 5, paddingHorizontal: 10 }}>
+                        <TouchableOpacity onPress={() => { }} style={{ backgroundColor: "green", borderRadius: 10, alignItems: 'center', width: 100, paddingVertical: 5, }}>
                             <Text style={{ color: "white", fontSize: 18, fontWeight: 'bold' }}>BUYY</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => { }} style={{ backgroundColor: "red", borderRadius: 10, alignItems: 'center', width: 100, paddingVertical: 5, paddingHorizontal: 10 }}>
+                        <TouchableOpacity onPress={() => { }} style={{ backgroundColor: "red", borderRadius: 10, alignItems: 'center', width: 100, paddingVertical: 5, }}>
                             <Text style={{ color: "white", fontSize: 18, fontWeight: 'bold' }}>SELL</Text>
                         </TouchableOpacity>
                     </View>
