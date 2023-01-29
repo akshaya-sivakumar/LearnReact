@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { LayoutAnimation, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ExpandableComponent from '../widgets/expandable';
 
@@ -454,29 +454,53 @@ const Watchlist: React.FC = () => {
     
             setWatchlist(newList);
         } */
+
+    const updateLayout = (index?: any) => {
+
+    };
     return (
 
 
 
 
         <SafeAreaView style={{ flex: 1 }} >
-            <Text>
+            <View style={{ alignContent: "center", alignItems: "center", paddingVertical: 20 }}>
+                <Text style={{ fontWeight: "bold", fontSize: 18, color: "black" }}>
 
-                Msil Watchlist
+                    Msil Watchlist
 
-            </Text>
+                </Text>
+            </View>
+
 
             {watchlist.map((item, index) => (
 
-                <View key={index}>
-                    <TouchableOpacity key={index} onPress={() => { handleToggleComplete(index) }}><Text>
-                        {item.dispSym}
-                    </Text>
-                    </TouchableOpacity>
-                    <ExpandableComponent key={item.excToken} item={{ "item": item, "isExpanded": list[index].expanded }} />
+                <ExpandableComponent
+                    key={index}
+                    onClickFunction={() => {
+                        console.warn(index)
+                        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+                        const newList = watchlist.map((item, indexs) => {
+                            if (index === indexs) {
+                                const updatedItem = {
+                                    ...item,
+                                    expanded: !item.expanded,
+                                };
+
+                                return updatedItem;
+                            }
+
+                            else
+
+                                return item;
+                        });
+                        console.warn(newList)
 
 
-                </View>
+                        setWatchlist(newList);
+                    }}
+                    item={watchlist[index]}
+                />
             )
 
 
