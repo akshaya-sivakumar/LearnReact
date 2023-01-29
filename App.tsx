@@ -1,8 +1,10 @@
+
 import React from 'react';
-import LoginPage from './lib/pages/login';
+import Watchlist from './lib/pages/watchlist';
 
 
- class App extends React.Component {
+
+class App extends React.Component {
 
    /* constructor() {
       super();
@@ -24,15 +26,16 @@ import LoginPage from './lib/pages/login';
       );
    } */
 
-  
+
    render() {
-     
+
       return (
          //<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#00BCD4" translucent = {true}/>
-        //<GeolocationExample/>
-        <LoginPage/>
+         //<GeolocationExample/>
+
+         <Watchlist />
       );
-   } 
+   }
 }
 
 export default App

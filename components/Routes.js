@@ -1,16 +1,15 @@
 import React from 'react'
-import { Router, Scene } from 'react-native-router-flux'
-import Http from './http_example'
-import Image from './image_example'
+import { Router } from 'react-native-router-flux'
+
 
 
 
 const Routes = () => (
    <Router>
-      <Scene key = "root">
-         <Scene key = "Http" component = {Http} title = "Http" initial = {true} />
-         <Scene key = "Image" component = {Image} title = "Image" />
-      </Scene>
-   </Router>
+    <Stack key="root">
+      <Scene key="login" component={Login} title="Login" />
+     
+    </Stack>
+  </Router>
 )
 export default Routes
