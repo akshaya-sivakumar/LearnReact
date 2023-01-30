@@ -30,7 +30,7 @@ interface Data {
 }
 
 
-const Watchlist: React.FC<Data> = () => {
+const Watchlist: React.FC = () => {
 
     const [expanded, setExpanded] = useState<string[]>([]);
     const [watchlist, setWatchlist] = useState<Data[]>([]);
