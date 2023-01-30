@@ -1,6 +1,6 @@
 
 import React from 'react';
-import UiPage from './lib/redux/ui';
+import UiNew from './lib/redux_new/ui_page';
 
 
 
@@ -33,7 +33,7 @@ class App extends React.Component {
          //<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#00BCD4" translucent = {true}/>
          //<GeolocationExample/>
 
-         <UiPage />
+         <UiNew />
       );
    }
 }
