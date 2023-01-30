@@ -26,7 +26,7 @@ const ExpandableComponent: React.FC<ExpandableComponentProps> = ({
 
     return (
 
-        <View style={{
+        <View key={item.excToken} style={{
 
 
 
@@ -44,7 +44,7 @@ const ExpandableComponent: React.FC<ExpandableComponentProps> = ({
 
                         <Text style={{ color: "#ff1493" }}>BSE </Text>
                     </View>
-                    <View style={{ flexDirection: "column", width: Dimensions.get("window").width * 0.14, alignSelf: 'flex-end', justifyContent: "flex-start", alignItems: "flex-start", alignContent: "flex-start" }}>
+                    <View style={{ flexDirection: "column", width: Dimensions.get("window").width * 0.14, alignSelf: 'flex-start', justifyContent: "flex-start", alignItems: "flex-start", alignContent: "flex-start" }}>
                         <Text style={{ color: "red", textAlign: "right" }}> {item.excToken}</Text>
                         <View style={{ flexDirection: "row", paddingTop: 5, justifyContent: "space-evenly", width: Dimensions.get("window").width * 0.2, }}>
                             <Text style={{ color: "orange" }}>{item.haircut} </Text>

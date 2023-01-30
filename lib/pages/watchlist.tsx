@@ -435,7 +435,7 @@ const Watchlist: React.FC<Data> = () => {
         }
     ];
 
-  
+
 
 
 
@@ -476,9 +476,9 @@ const Watchlist: React.FC<Data> = () => {
 
 
             {watchlist.map((item, index) => (
-                <View style={{ paddingHorizontal: 20 }}>
+                <View key={index} style={{ paddingHorizontal: 20 }}>
                     <ExpandableComponent
-                        key={index}
+
                         expandedList={expanded}
                         onClickFunction={() => {
                             console.warn(index)
