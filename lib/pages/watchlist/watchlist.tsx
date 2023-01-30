@@ -1,10 +1,15 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { ActivityIndicator, Alert, Dimensions, LayoutAnimation, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, LayoutAnimation, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import ExpandableComponent from '../widgets/expandable';
+import { useSelector } from 'react-redux';
+import ExpandableComponent from '../../widgets/expandable';
+import { fetchData } from './actions';
+import { store } from './store';
+import { IState } from './types';
 
-interface Data {
+
+export interface Data {
     baseSym: string;
     companyName: string;
     dispSym: string;
@@ -31,6 +36,7 @@ interface Data {
 
 
 const Watchlist: React.FC = () => {
+    const { data, loading, error } = useSelector((state: IState) => state);
 
     const [expanded, setExpanded] = useState<string[]>([]);
     const [watchlist, setWatchlist] = useState<Data[]>([]);
@@ -44,11 +50,15 @@ const Watchlist: React.FC = () => {
         }
     }
     React.useEffect(() => {
+        store.dispatch(fetchData())
 
-        handleSubmit()
+
+
+
+
     }, []);
 
-    const handleSubmit = async () => {
+    /* const handleSubmit = async () => {
         try {
             const response = await fetch('https://run.mocky.io/v3/ec1a0f0c-3739-4914-b5c0-2140e5165fe5', {
                 method: 'POST',
@@ -66,35 +76,51 @@ const Watchlist: React.FC = () => {
         } catch (error: any) {
             Alert.prompt('Error', error.message);
         }
-    };
+    }; */
+    if (loading) {
+        return (
+            <View style={styles.container}>
+                <Text>Loading...</Text>
+            </View>
+        );
+    }
+
+    if (error) {
+        return (
+            <View style={styles.container}>
+                <Text>{error}</Text>
+            </View>
+        );
+    }
+
     return (
-        <SafeAreaView style={{ flex: 1 }} >
+
+        < SafeAreaView style={{ flex: 1 }
+        } >
             <View style={styles.watchlistHeaderContainer}>
                 <Text style={styles.watchlistHeader}>
                     Msil Watchlist
                 </Text>
             </View>
             <View>
-                {watchlist.length > 0 ? (<View>
-                    {watchlist?.map((item, index) => (
-                        <View key={index} style={{ paddingHorizontal: 20 }}>
-                            <ExpandableComponent
-                                expandedList={expanded}
-                                onClickFunction={() => {
-                                    console.warn(index)
-                                    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-                                    handleToggleComplete(item.excToken)
-                                }}
-                                item={watchlist[index]}
-                            />
-                        </View>
-                    )
-                    )}
-                </View>) : (
-                    <ActivityIndicator style={styles.container} size="large" color="#0000ff" />
+
+                {data?.map((item, index) => (
+                    <View key={index} style={{ paddingHorizontal: 20 }}>
+                        <ExpandableComponent
+                            expandedList={expanded}
+                            onClickFunction={() => {
+                                console.warn(index)
+                                LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+                                handleToggleComplete(item.excToken)
+                            }}
+                            item={item}
+                        />
+                    </View>
+                )
                 )}
+
             </View>
-        </SafeAreaView>
+        </SafeAreaView >
     )
 }
 

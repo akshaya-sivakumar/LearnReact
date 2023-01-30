@@ -1,42 +1,22 @@
-
 import React from 'react';
-import UiNew from './lib/redux_new/ui_page';
+import { Provider } from 'react-redux';
+import { store } from './lib/pages/watchlist/store';
+import Watchlist from './lib/pages/watchlist/watchlist';
 
 
 
-class App extends React.Component {
-
-   /* constructor() {
-      super();
-      this.state = {
-         switch1Value: false,
-      }
-   }
-   toggleSwitch1 = (value) => {
-      this.setState({switch1Value: value})
-      console.log('Switch 1 is: ' + value)
-   }
-   render() {
-      return (
-         <View>
-            <SwitchExample
-            toggleSwitch1 = {this.toggleSwitch1}
-            switch1Value = {this.state.switch1Value}/>
-         </View>
-      );
-   } */
+const App = () => {
 
 
-   render() {
 
-      return (
-         //<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#00BCD4" translucent = {true}/>
-         //<GeolocationExample/>
 
-         <UiNew />
-      );
-   }
-}
 
-export default App
+   return (
+      <Provider store={store}>
+         <Watchlist></Watchlist>
 
+      </Provider>
+   );
+};
+
+export default App;

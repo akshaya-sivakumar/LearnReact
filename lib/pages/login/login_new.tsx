@@ -1,7 +1,7 @@
 import CheckBox from '@react-native-community/checkbox';
 import React from 'react';
 import { ActivityIndicator, Dimensions, ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native';
-import ButtonWidget from '../../components/button_example';
+import ButtonWidget from '../../../components/button_example';
 
 
 
