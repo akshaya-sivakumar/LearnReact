@@ -1,22 +1,29 @@
 import CheckBox from '@react-native-community/checkbox';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { ActivityIndicator, Dimensions, ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Dimensions, ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useSelector } from 'react-redux';
 import ButtonWidget from '../../../components/button_example';
+import { login } from '../actions';
+import { store } from '../store';
+
+import { LoginState } from './loginTypes';
 
 
 
 
+type HomeScreenProps = {
+    navigation: StackNavigationProp<any>;
+};
+
+
+function LoginNew({ navigation }: HomeScreenProps) {
+    const { data, loading, error, success } = useSelector((state: LoginState) => state)
+
+    const isLoggedIn = useSelector((state: LoginState) => state.success);;
 
 
 
-const LoginNew: React.FC = () => {
-
-    const [enthusiasmLevel, setEnthusiasmLevel] = React.useState(
-        0
-    );
-    const [loading, setLoading] = React.useState(
-        false
-    );
     const [mobileNumber, setMobilenumber] = React.useState(
         ""
     );
@@ -24,15 +31,43 @@ const LoginNew: React.FC = () => {
         ""
     );
 
-    return (
 
-        loading ? <View style={styles.box}>
-            <ActivityIndicator
+    if (loading) {
+        console.warn(loading)
+        return (
+            <View style={styles.container}>
+                <Text>Loading...</Text>
+            </View>
+        );
+    }
 
-                color='#bc2b78'
-                size="large"
-                style={styles.activityIndicator} />
-        </View> :
+    if (error) {
+        console.warn(error)
+        return (
+            <View style={styles.container}>
+                <Text>error</Text>
+            </View>
+        );
+    }
+
+    React.useEffect(() => {
+        console.warn(isLoggedIn)
+        if (isLoggedIn) {
+            navigation.navigate("Watchlist")
+        }
+    }, [isLoggedIn, navigation])
+
+
+
+
+    if (!success) {
+
+
+        return (
+
+
+
+
 
 
             <ImageBackground source={{ uri: "https://i.pinimg.com/736x/65/9a/2b/659a2bc335f31700cacba5e1f2556b1f.jpg" }}>
@@ -94,8 +129,9 @@ const LoginNew: React.FC = () => {
                     </View>
                     <View style={{ alignItems: "center" }}>
                         <ButtonWidget onpress={() => {
-                            console.warn("loading");
-                            setLoading(true)
+                            store.dispatch(login(mobileNumber))
+
+
 
                         }} bgColor={"#00bfff"} textColor={"white"} btnLabel="Login" />
                     </View>
@@ -112,8 +148,8 @@ const LoginNew: React.FC = () => {
             </ImageBackground>
 
 
-    )
-
+        )
+    }
 }
 
 

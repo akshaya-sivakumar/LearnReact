@@ -4,8 +4,8 @@ import { Dimensions, LayoutAnimation, StyleSheet, Text, View } from 'react-nativ
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 import ExpandableComponent from '../../widgets/expandable';
-import { fetchData } from './actions';
-import { store } from './store';
+import { fetchData } from '../actions';
+import { store } from '../store';
 import { IState } from './types';
 
 
@@ -35,11 +35,11 @@ export interface Data {
 }
 
 
-const Watchlist: React.FC = () => {
+function Watchlist() {
     const { data, loading, error } = useSelector((state: IState) => state);
 
     const [expanded, setExpanded] = useState<string[]>([]);
-    const [watchlist, setWatchlist] = useState<Data[]>([]);
+
 
     function handleToggleComplete(id: any) {
         if (expanded.includes(id)) {
