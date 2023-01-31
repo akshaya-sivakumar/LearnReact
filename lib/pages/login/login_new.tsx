@@ -34,14 +34,14 @@ const LoginNew = () => {
     );
 
 
-    /* if (loading) {
+    if (loading) {
 
         return (
             <View style={styles.container}>
                 <Text>Loading...</Text>
             </View>
         );
-    } */
+    }
 
     if (error) {
 
