@@ -12,7 +12,7 @@ import { OtpState } from './otpTypes';
 interface Props { }
 
 const OtpValidation = () => {
-    const {  loading, error, success } = useSelector((state: OtpState) => state)
+    const { loading, error, success } = useSelector((state: OtpState) => state)
     const [pin, setPin] = useState(['', '', '', '']);
     const inputs = useRef<TextInput[]>([]);
     const navigation = useNavigation<StackNavigationProp<Record<string, object | undefined>>>();
@@ -63,7 +63,7 @@ const OtpValidation = () => {
 
         return (
             <View >
-                <Text>Loading...</Text>
+                <Text>Load</Text>
             </View>
         );
     }

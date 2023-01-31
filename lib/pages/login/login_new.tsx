@@ -1,8 +1,8 @@
 import CheckBox from '@react-native-community/checkbox';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React from 'react';
-import { Dimensions, ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Dimensions, ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import ButtonWidget from '../../../components/button_example';
 import { login } from '../actions';
@@ -12,33 +12,23 @@ import { LoginState } from './loginTypes';
 
 
 
-
-
-
-
-
 const LoginNew = () => {
-
-
     const { data, loading, error, success } = useSelector((state: LoginState) => state)
-
-
     const navigation = useNavigation<StackNavigationProp<Record<string, object | undefined>>>();
-
-
-    const [mobileNumber, setMobilenumber] = React.useState(
+    const [mobileNumber, setMobilenumber] = useState(
         ""
     );
-    const [code, setcode] = React.useState(
+    const [code, setcode] = useState(
         ""
     );
-
-
+    useEffect(() => {
+        if (success) { navigation.navigate("Otp") }
+    }, [success])
     if (loading) {
 
         return (
             <View style={styles.container}>
-                <Text>Loading...</Text>
+                <ActivityIndicator style={styles.container} size="large" color="#0000ff" />
             </View>
         );
     }
@@ -51,122 +41,74 @@ const LoginNew = () => {
             </View>
         );
     }
+    if (!success)
+        return (
+            <ImageBackground source={{ uri: "https://i.pinimg.com/736x/65/9a/2b/659a2bc335f31700cacba5e1f2556b1f.jpg" }}>
 
+                <View style={{ paddingHorizontal: 30, justifyContent: 'center', height: Dimensions.get('window').height, flexDirection: "column", }}>
+                    <Text style={
+                        { fontSize: 25, color: "black", paddingBottom: 20 }
+                    }>Enter Your Mobile Number
+                    </Text>
+                    <Text style={{ paddingBottom: 30, fontSize: 16, }}>A 6 digit OTP will be sent in SMS to verify your mobile number
+                    </Text>
+                    <View style={{ flexDirection: 'row', justifyContent: "center" }}>
 
+                        <View style={{ flexDirection: 'column', }}>
 
-    if (success) {
+                            <Text style={{ paddingBottom: 10 }}>Phone number
+                            </Text>
+                            <View style={styles.row}>
+                                <TextInput underlineColorAndroid="transparent"
+                                    placeholder="+91"
 
-        navigation.navigate("Otp", { data })
-    }
+                                    value={code}
+                                    placeholderTextColor="grey"
+                                    autoCapitalize="none"
+                                    onChangeText={(value) => {
+                                        setcode(value)
+                                    }}
 
+                                    style={styles.codeInput}>
 
-
-
-
-
-
-
-
-    return (
-
-
-
-
-
-
-        <ImageBackground source={{ uri: "https://i.pinimg.com/736x/65/9a/2b/659a2bc335f31700cacba5e1f2556b1f.jpg" }}>
-
-            <View style={{ paddingHorizontal: 30, justifyContent: 'center', height: Dimensions.get('window').height, flexDirection: "column", }}>
-
-
-                <Text style={
-                    { fontSize: 25, color: "black", paddingBottom: 20 }
-                }>Enter Your Mobile Number
-                </Text>
-                <Text style={{ paddingBottom: 30, fontSize: 16, }}>A 6 digit OTP will be sent in SMS to verify your mobile number
-                </Text>
-                <View style={{ flexDirection: 'row', justifyContent: "center" }}>
-
-                    <View style={{ flexDirection: 'column', }}>
-
-                        <Text style={{ paddingBottom: 10 }}>Phone number
-                        </Text>
-                        <View style={styles.row}>
-                            <TextInput underlineColorAndroid="transparent"
-                                placeholder="+91"
-
-                                value={code}
-                                placeholderTextColor="grey"
-                                autoCapitalize="none"
-                                onChangeText={(value) => {
-                                    setcode(value)
-                                }}
-
-                                style={styles.codeInput}>
-
-                            </TextInput>
-                            <TextInput underlineColorAndroid="transparent"
-                                value={mobileNumber}
-                                placeholder="Mobile Number"
-                                placeholderTextColor="grey"
-                                autoCapitalize="none"
-                                onChangeText={(value) => {
-                                    setMobilenumber(value)
-                                }}
-
-                                style={styles.mobileInput}>
-
-                            </TextInput>
-
+                                </TextInput>
+                                <TextInput underlineColorAndroid="transparent"
+                                    value={mobileNumber}
+                                    placeholder="Mobile Number"
+                                    placeholderTextColor="grey"
+                                    autoCapitalize="none"
+                                    onChangeText={(value) => {
+                                        setMobilenumber(value)
+                                    }}
+                                    style={styles.mobileInput}>
+                                </TextInput>
+                            </View>
                         </View>
                     </View>
-                </View>
+                    <View style={{ flexDirection: "row", justifyContent: 'center', alignItems: "center", alignContent: "center", paddingBottom: 20, paddingTop: 20, }}>
+                        <CheckBox
+                        />
+                        <Text >
+                            Agree to our Terms and Conditions
+                        </Text>
+                    </View>
+                    <View style={{ alignItems: "center" }}>
+                        <ButtonWidget
+                            onpress={() => {
+                                loginstore.dispatch(login(mobileNumber))
 
-
-                <View style={{ flexDirection: "row", justifyContent: 'center', alignItems: "center", alignContent: "center", paddingBottom: 20, paddingTop: 20, }}>
-                    <CheckBox
-
-                    />
-                    <Text >
-                        Agree to our Terms and Conditions
-                    </Text>
-                </View>
-                <View style={{ alignItems: "center" }}>
-                    <ButtonWidget onpress={() => {
-
-                        loginstore.dispatch(login(mobileNumber))
-
-                        //  
-
-
-
-                    }} bgColor={"#00bfff"} textColor={"white"} btnLabel="Login" />
-                </View>
-
-
-
-
-
-
-
-
-            </View >
-
-        </ImageBackground>
-
-
-    )
+                            }} bgColor={"#00bfff"} textColor={"white"} btnLabel="Login" />
+                    </View>
+                </View >
+            </ImageBackground>
+        )
 }
-
-
-
-
 export default LoginNew;
-
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 50
+        height: Dimensions.get('window').height,
+        justifyContent: 'center', alignItems: 'center'
     },
     row: {
         alignItems: "center",
