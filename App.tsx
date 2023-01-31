@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { LoginPage, WatchlistPage } from './lib/pages/provider';
+import { LoginPage, OtpPage, WatchlistPage } from './lib/pages/provider';
 
 
 const Stack = createStackNavigator();
@@ -19,6 +19,7 @@ function App() {
 
             <Stack.Screen name="Watchlist" component={WatchlistPage} />
             <Stack.Screen name="Login" component={LoginPage} />
+            <Stack.Screen name="Otp" component={OtpPage} />
 
 
 

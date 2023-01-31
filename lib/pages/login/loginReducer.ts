@@ -2,7 +2,7 @@ import { LoginAction, LoginState } from "./loginTypes";
 
 
 const initialState: LoginState = {
-    data: undefined,
+    data: null,
     loading: false,
     error: null,
     success: false
@@ -11,7 +11,7 @@ const initialState: LoginState = {
 export const loginReducer = (state = initialState, action: LoginAction) => {
     switch (action.type) {
         case 'FETCH_DATA_START':
-            return { ...state, loading: true };
+            return { ...state, loading: true, success: false };
         case 'FETCH_DATA_SUCCESS':
             return { ...state, data: action.payload, loading: false, success: true };
         case 'FETCH_DATA_ERROR':

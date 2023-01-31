@@ -1,6 +1,7 @@
 import { Provider } from 'react-redux';
 import LoginNew from './login/login_new';
-import { loginstore, store } from './store';
+import OtpValidation from './otp/otp_validation';
+import { loginstore, otpstore, store } from './store';
 import Watchlist from './watchlist/watchlist';
 
 export const WatchlistPage = () => {
@@ -18,5 +19,16 @@ export const LoginPage = () => {
         <Provider store={loginstore}>
             <LoginNew />
         </Provider>
+    );
+};
+
+
+export const OtpPage = () => {
+    return (
+        <Provider store={otpstore}>
+            <OtpValidation />
+        </Provider>
+
+
     );
 };

@@ -36,7 +36,7 @@ export interface Data {
 
 
 function Watchlist() {
-    const { data, loading, error } = useSelector((state: IState) => state);
+    const { data, loading, error, success } = useSelector((state: IState) => state);
 
     const [expanded, setExpanded] = useState<string[]>([]);
 
@@ -85,6 +85,14 @@ function Watchlist() {
         );
     }
 
+    /* if (success) {
+        return (
+            <View style={styles.container}>
+                <Text>done</Text>
+            </View>
+        );
+    } */
+
     if (error) {
         return (
             <View style={styles.container}>
@@ -116,7 +124,7 @@ function Watchlist() {
                         <ExpandableComponent
                             expandedList={expanded}
                             onClickFunction={() => {
-                                console.warn(index)
+
                                 LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
                                 handleToggleComplete(item.excToken)
                             }}

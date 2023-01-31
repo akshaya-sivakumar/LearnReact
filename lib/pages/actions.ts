@@ -19,8 +19,6 @@ export function fetchData(): any {
                 throw Error(response.statusText);
             }
             const data = await response.json();
-            console.warn(JSON.stringify(data))
-
             dispatch({ type: 'FETCH_DATA_SUCCESS', payload: data.response.data.symbols as Data[] });
         } catch (error) {
             dispatch({ type: 'FETCH_DATA_ERROR', payload: error });
@@ -54,7 +52,44 @@ export function login(mobileNumber: string): any {
             }
             const data = await response.json();
 
-            console.error(JSON.stringify(data))
+
+
+            dispatch({ type: 'FETCH_DATA_SUCCESS', payload: data.response });
+        } catch (error) {
+            dispatch({ type: 'FETCH_DATA_ERROR', payload: error });
+        }
+    };
+}
+
+
+
+export function otpValidation(otp: string): any {
+    return async (dispatch: any) => {
+        dispatch({ type: 'FETCH_DATA_START' });
+        try {
+            const response = await fetch('https://dev.gwcindia.in/virtual-trade/User/Login/1.0.0', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-ENCRYPT': "false"
+
+                },
+                body: JSON.stringify({
+                    "request": {
+                        "data":
+
+                            { "mobNo": "+918248121331", "userType": "virtual", "otp": otp }
+                        , "appID": "45370504ab27eed7327a1df46403a30a"
+                    }
+                })
+            });
+
+            if (!response.ok) {
+                throw Error(response.statusText);
+            }
+            const data = await response.json();
+            console.warn(JSON.stringify(data))
+
 
             dispatch({ type: 'FETCH_DATA_SUCCESS', payload: JSON.stringify(data) });
         } catch (error) {

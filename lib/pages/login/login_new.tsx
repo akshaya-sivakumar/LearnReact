@@ -5,6 +5,8 @@ import React from 'react';
 import { Dimensions, ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import ButtonWidget from '../../../components/button_example';
+import { login } from '../actions';
+import { loginstore } from '../store';
 
 import { LoginState } from './loginTypes';
 
@@ -16,9 +18,11 @@ import { LoginState } from './loginTypes';
 
 
 const LoginNew = () => {
+
+
     const { data, loading, error, success } = useSelector((state: LoginState) => state)
 
-    const isLoggedIn = useSelector((state: LoginState) => state.success);;
+
     const navigation = useNavigation<StackNavigationProp<Record<string, object | undefined>>>();
 
 
@@ -30,17 +34,17 @@ const LoginNew = () => {
     );
 
 
-    if (loading) {
-        console.warn(loading)
+    /* if (loading) {
+
         return (
             <View style={styles.container}>
                 <Text>Loading...</Text>
             </View>
         );
-    }
+    } */
 
     if (error) {
-        console.warn(error)
+
         return (
             <View style={styles.container}>
                 <Text>error</Text>
@@ -48,12 +52,14 @@ const LoginNew = () => {
         );
     }
 
-    /*   React.useEffect(() => {
-          console.warn(isLoggedIn)
-          if (isLoggedIn) {
-              navigation.navigate("Watchlist")
-          }
-      }, [isLoggedIn, navigation]) */
+
+
+    if (success) {
+
+        navigation.navigate("Otp", { data })
+    }
+
+
 
 
 
@@ -127,8 +133,10 @@ const LoginNew = () => {
                 </View>
                 <View style={{ alignItems: "center" }}>
                     <ButtonWidget onpress={() => {
-                        navigation.navigate("Watchlist")
-                        // store.dispatch(login(mobileNumber))
+
+                        loginstore.dispatch(login(mobileNumber))
+
+                        //  
 
 
 
