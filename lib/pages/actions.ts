@@ -19,6 +19,7 @@ export function fetchData(): any {
                 throw Error(response.statusText);
             }
             const data = await response.json();
+            console.warn(JSON.stringify(data))
 
             dispatch({ type: 'FETCH_DATA_SUCCESS', payload: data.response.data.symbols as Data[] });
         } catch (error) {

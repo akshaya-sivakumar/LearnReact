@@ -1,27 +1,25 @@
 import CheckBox from '@react-native-community/checkbox';
+import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { Dimensions, ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import ButtonWidget from '../../../components/button_example';
-import { login } from '../actions';
-import { store } from '../store';
 
 import { LoginState } from './loginTypes';
 
 
 
 
-type HomeScreenProps = {
-    navigation: StackNavigationProp<any>;
-};
 
 
-function LoginNew({ navigation }: HomeScreenProps) {
+
+
+const LoginNew = () => {
     const { data, loading, error, success } = useSelector((state: LoginState) => state)
 
     const isLoggedIn = useSelector((state: LoginState) => state.success);;
-
+    const navigation = useNavigation<StackNavigationProp<Record<string, object | undefined>>>();
 
 
     const [mobileNumber, setMobilenumber] = React.useState(
@@ -50,107 +48,108 @@ function LoginNew({ navigation }: HomeScreenProps) {
         );
     }
 
-    React.useEffect(() => {
-        console.warn(isLoggedIn)
-        if (isLoggedIn) {
-            navigation.navigate("Watchlist")
-        }
-    }, [isLoggedIn, navigation])
-
-
-
-
-    if (!success) {
-
-
-        return (
+    /*   React.useEffect(() => {
+          console.warn(isLoggedIn)
+          if (isLoggedIn) {
+              navigation.navigate("Watchlist")
+          }
+      }, [isLoggedIn, navigation]) */
 
 
 
 
 
 
-            <ImageBackground source={{ uri: "https://i.pinimg.com/736x/65/9a/2b/659a2bc335f31700cacba5e1f2556b1f.jpg" }}>
 
-                <View style={{ paddingHorizontal: 30, justifyContent: 'center', height: Dimensions.get('window').height, flexDirection: "column", }}>
+    return (
 
 
-                    <Text style={
-                        { fontSize: 25, color: "black", paddingBottom: 20 }
-                    }>Enter Your Mobile Number
-                    </Text>
-                    <Text style={{ paddingBottom: 30, fontSize: 16, }}>A 6 digit OTP will be sent in SMS to verify your mobile number
-                    </Text>
-                    <View style={{ flexDirection: 'row', justifyContent: "center" }}>
 
-                        <View style={{ flexDirection: 'column', }}>
 
-                            <Text style={{ paddingBottom: 10 }}>Phone number
-                            </Text>
-                            <View style={styles.row}>
-                                <TextInput underlineColorAndroid="transparent"
-                                    placeholder="+91"
 
-                                    value={code}
-                                    placeholderTextColor="grey"
-                                    autoCapitalize="none"
-                                    onChangeText={(value) => {
-                                        setcode(value)
-                                    }}
 
-                                    style={styles.codeInput}>
+        <ImageBackground source={{ uri: "https://i.pinimg.com/736x/65/9a/2b/659a2bc335f31700cacba5e1f2556b1f.jpg" }}>
 
-                                </TextInput>
-                                <TextInput underlineColorAndroid="transparent"
-                                    value={mobileNumber}
-                                    placeholder="Mobile Number"
-                                    placeholderTextColor="grey"
-                                    autoCapitalize="none"
-                                    onChangeText={(value) => {
-                                        setMobilenumber(value)
-                                    }}
+            <View style={{ paddingHorizontal: 30, justifyContent: 'center', height: Dimensions.get('window').height, flexDirection: "column", }}>
 
-                                    style={styles.mobileInput}>
 
-                                </TextInput>
+                <Text style={
+                    { fontSize: 25, color: "black", paddingBottom: 20 }
+                }>Enter Your Mobile Number
+                </Text>
+                <Text style={{ paddingBottom: 30, fontSize: 16, }}>A 6 digit OTP will be sent in SMS to verify your mobile number
+                </Text>
+                <View style={{ flexDirection: 'row', justifyContent: "center" }}>
 
-                            </View>
+                    <View style={{ flexDirection: 'column', }}>
+
+                        <Text style={{ paddingBottom: 10 }}>Phone number
+                        </Text>
+                        <View style={styles.row}>
+                            <TextInput underlineColorAndroid="transparent"
+                                placeholder="+91"
+
+                                value={code}
+                                placeholderTextColor="grey"
+                                autoCapitalize="none"
+                                onChangeText={(value) => {
+                                    setcode(value)
+                                }}
+
+                                style={styles.codeInput}>
+
+                            </TextInput>
+                            <TextInput underlineColorAndroid="transparent"
+                                value={mobileNumber}
+                                placeholder="Mobile Number"
+                                placeholderTextColor="grey"
+                                autoCapitalize="none"
+                                onChangeText={(value) => {
+                                    setMobilenumber(value)
+                                }}
+
+                                style={styles.mobileInput}>
+
+                            </TextInput>
+
                         </View>
                     </View>
+                </View>
 
 
-                    <View style={{ flexDirection: "row", justifyContent: 'center', alignItems: "center", alignContent: "center", paddingBottom: 20, paddingTop: 20, }}>
-                        <CheckBox
+                <View style={{ flexDirection: "row", justifyContent: 'center', alignItems: "center", alignContent: "center", paddingBottom: 20, paddingTop: 20, }}>
+                    <CheckBox
 
-                        />
-                        <Text >
-                            Agree to our Terms and Conditions
-                        </Text>
-                    </View>
-                    <View style={{ alignItems: "center" }}>
-                        <ButtonWidget onpress={() => {
-                            store.dispatch(login(mobileNumber))
-
-
-
-                        }} bgColor={"#00bfff"} textColor={"white"} btnLabel="Login" />
-                    </View>
+                    />
+                    <Text >
+                        Agree to our Terms and Conditions
+                    </Text>
+                </View>
+                <View style={{ alignItems: "center" }}>
+                    <ButtonWidget onpress={() => {
+                        navigation.navigate("Watchlist")
+                        // store.dispatch(login(mobileNumber))
 
 
 
+                    }} bgColor={"#00bfff"} textColor={"white"} btnLabel="Login" />
+                </View>
 
 
 
 
 
-                </View >
-
-            </ImageBackground>
 
 
-        )
-    }
+
+            </View >
+
+        </ImageBackground>
+
+
+    )
 }
+
 
 
 

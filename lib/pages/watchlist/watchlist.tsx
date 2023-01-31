@@ -88,7 +88,14 @@ function Watchlist() {
     if (error) {
         return (
             <View style={styles.container}>
-                <Text>{error}</Text>
+                <Text>error</Text>
+            </View>
+        );
+    }
+    if (loading == undefined) {
+        return (
+            <View style={styles.container}>
+                <Text>undefined</Text>
             </View>
         );
     }
