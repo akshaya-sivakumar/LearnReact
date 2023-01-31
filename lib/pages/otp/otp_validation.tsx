@@ -1,7 +1,7 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useRef, useState } from 'react';
-import { Text, TextInput, View } from 'react-native';
+import { Text, TextInput, ToastAndroid, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import ButtonWidget from '../../../components/button_example';
 import { otpValidation } from '../actions';
@@ -9,9 +9,15 @@ import { otpstore } from '../store';
 import { OtpState } from './otpTypes';
 
 
-interface Props { }
+type RouteParams = {
+    name: string;
+    age: number;
+};
 
 const OtpValidation = () => {
+
+    const route = useRoute();
+    const params = route.params as RouteParams;
     const { loading, error, success } = useSelector((state: OtpState) => state)
     const [pin, setPin] = useState(['', '', '', '']);
     const inputs = useRef<TextInput[]>([]);
@@ -21,11 +27,12 @@ const OtpValidation = () => {
 
     useEffect(() => {
 
-        if (!pin.includes("")) {
 
+        if (pin.join("").length === 4) {
 
-            otpstore.dispatch(otpValidation(pin.join("")))
-
+            console.warn(pin.join("").length)
+            // otpstore.dispatch(otpValidation(pin.join("")))
+            1
 
 
         }
@@ -34,7 +41,13 @@ const OtpValidation = () => {
             navigation.navigate("Watchlist")
 
         }
-    }, [pin, success]);
+        if (error) {
+            setPin(['', '', '', ''])
+            ToastAndroid.show(error.message, ToastAndroid.SHORT);
+        }
+
+
+    }, [pin, success, error, params]);
 
     const handleChange = (text: string, index: number) => {
 
@@ -46,13 +59,14 @@ const OtpValidation = () => {
 
 
         if (text == "") {
+
             inputs.current[index - 1]?.focus();
         } else { inputs.current[index + 1]?.focus(); }
-        7
+
 
 
         setPin(newOtpValue);
-        React.useState
+
 
 
 
@@ -68,18 +82,13 @@ const OtpValidation = () => {
         );
     }
 
-    if (error) {
 
-        return (
-            <View >
-                <Text>error</Text>
-            </View>
-        );
-    }
 
     return (
         <View style={{ flexDirection: 'column', alignSelf: 'center', paddingTop: 80 }}>
-            <View><Text style={{ color: "black", fontSize: 20 }} >OTP Verification</Text>
+            <View>
+
+                <Text style={{ color: "black", fontSize: 20 }} >OTP Verification</Text>
                 <Text style={{ color: "grey", fontSize: 17 }}>OTP will be automatically verified</Text></View>
             <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 15 }}>
                 {[0, 1, 2, 3].map(index => (
@@ -92,11 +101,15 @@ const OtpValidation = () => {
                         ref={input => (inputs.current[index] = input!)}
 
                         onChangeText={text => handleChange(text, index)}
+
                     />
                 ))}
             </View>
             <View style={{ paddingTop: 50 }}>
-                <ButtonWidget bgColor={"transparent"} btnLabel="Resend otp" onpress={() => { }} textColor={"blue"}></ButtonWidget>
+                <ButtonWidget bgColor={"transparent"} btnLabel="Resend otp" onpress={() => {
+
+                    otpstore.dispatch(otpValidation(pin.join("")))
+                }} textColor={"blue"}></ButtonWidget>
             </View>
         </View>
     );

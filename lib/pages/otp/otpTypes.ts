@@ -4,7 +4,7 @@ export interface OtpState {
     data?: undefined;
     loading: boolean;
     success: boolean;
-    error: string | null;
+    error: any;
 }
 
 export interface OtpAction {

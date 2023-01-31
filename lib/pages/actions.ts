@@ -52,10 +52,14 @@ export function login(mobileNumber: string): any {
             }
             const data = await response.json();
 
-
+            if (data.response.infoID == "EGN002") {
+                throw Error(data.response.
+                    infoMsg);
+            }
 
             dispatch({ type: 'FETCH_DATA_SUCCESS', payload: data.response });
         } catch (error) {
+
             dispatch({ type: 'FETCH_DATA_ERROR', payload: error });
         }
     };
@@ -88,7 +92,10 @@ export function otpValidation(otp: string): any {
                 throw Error(response.statusText);
             }
             const data = await response.json();
-            console.warn(JSON.stringify(data))
+            if (data.response.infoID == "EGN002") {
+                throw Error(data.response.
+                    infoMsg);
+            }
 
 
             dispatch({ type: 'FETCH_DATA_SUCCESS', payload: JSON.stringify(data) });

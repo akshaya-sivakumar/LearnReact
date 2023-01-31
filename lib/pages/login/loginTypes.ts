@@ -4,7 +4,7 @@ export interface LoginState {
     data?: any;
     loading: boolean;
     success: boolean;
-    error: string | null;
+    error: any;
 }
 
 export interface LoginAction {

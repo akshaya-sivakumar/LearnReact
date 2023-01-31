@@ -2,7 +2,7 @@ import CheckBox from '@react-native-community/checkbox';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Dimensions, ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, Dimensions, ImageBackground, StyleSheet, Text, TextInput, ToastAndroid, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import ButtonWidget from '../../../components/button_example';
 import { login } from '../actions';
@@ -34,7 +34,12 @@ const LoginNew = () => {
     );
 
     useEffect(() => {
-        if (success) { navigation.navigate("Otp") }
+        if (success) {
+            navigation.navigate("Otp", {
+                mobileNumber: mobileNumber,
+
+            })
+        }
     }, [success])
 
 
@@ -47,13 +52,10 @@ const LoginNew = () => {
         );
     }
 
-    if (error) {
 
-        return (
-            <View style={styles.container}>
-                <Text>error</Text>
-            </View>
-        );
+
+    if (error) {
+        ToastAndroid.show(error.message, ToastAndroid.SHORT);
     }
 
     return (
