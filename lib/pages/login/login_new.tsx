@@ -40,7 +40,7 @@ const LoginNew = () => {
 
         }
         if (success) {
-            console.warn("success")
+         
             navigation.navigate("Otp", {
                 mobile: mobileNumber,
 

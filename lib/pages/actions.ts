@@ -56,7 +56,7 @@ export function login(mobileNumber: string): any {
                 throw Error(data.response.
                     infoMsg);
             }
-
+            console.warn(JSON.stringify(data.response))
             dispatch({ type: 'FETCH_DATA_SUCCESS', payload: data.response });
         } catch (error) {
 
@@ -100,7 +100,7 @@ export function otpValidation(otp: string): any {
             console.warn(JSON.stringify(data))
             dispatch({ type: 'FETCH_DATA_SUCCESS', payload: JSON.stringify(data) });
         } catch (error) {
-            console.warn(error)
+
             dispatch({ type: 'FETCH_DATA_ERROR', payload: error });
         }
     };
