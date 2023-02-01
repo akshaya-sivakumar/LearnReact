@@ -26,7 +26,9 @@ export const LoginPage = () => {
 export const OtpPage = () => {
     return (
         <Provider store={otpstore}>
+
             <OtpValidation />
+
         </Provider>
 
 

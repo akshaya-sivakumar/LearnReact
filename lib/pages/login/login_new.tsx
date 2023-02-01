@@ -2,7 +2,7 @@ import CheckBox from '@react-native-community/checkbox';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Dimensions, ImageBackground, StyleSheet, Text, TextInput, ToastAndroid, View } from 'react-native';
+import { ActivityIndicator, Dimensions, ImageBackground, Modal, StyleSheet, Text, TextInput, ToastAndroid, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import ButtonWidget from '../../../components/button_example';
 import { login } from '../actions';
@@ -34,34 +34,36 @@ const LoginNew = () => {
     );
 
     useEffect(() => {
+        if (error) {
+            ToastAndroid.show(error.message, ToastAndroid.SHORT);
+            loginstore.dispatch({ type: 'FETCH_DATA_RESET', payload: null })
+
+        }
         if (success) {
+            console.warn("success")
             navigation.navigate("Otp", {
-                mobileNumber: mobileNumber,
+                mobile: mobileNumber,
 
             })
         }
-    }, [success])
-
-
-    if (loading) {
-
-        return (
-            <View style={styles.container}>
-                <ActivityIndicator style={styles.container} size="large" color="#0000ff" />
-            </View>
-        );
-    }
+    }, [success, error])
 
 
 
-    if (error) {
-        ToastAndroid.show(error.message, ToastAndroid.SHORT);
-    }
+
+
+
 
     return (
         <ImageBackground source={{ uri: "https://i.pinimg.com/736x/65/9a/2b/659a2bc335f31700cacba5e1f2556b1f.jpg" }}>
 
             <View style={{ paddingHorizontal: 30, justifyContent: 'center', height: Dimensions.get('window').height, flexDirection: "column", }}>
+
+                <Modal visible={loading} animationType="fade" transparent>
+                    <View style={styles.backdrop}>
+                        <ActivityIndicator size="large" color="#fff" />
+                    </View>
+                </Modal>
                 <Text style={
                     { fontSize: 25, color: "black", paddingBottom: 20 }
                 }>Enter Your Mobile Number
@@ -111,6 +113,7 @@ const LoginNew = () => {
                 <View style={{ alignItems: "center" }}>
                     <ButtonWidget
                         onpress={() => {
+
                             loginstore.dispatch(login(mobileNumber))
 
                         }} bgColor={"#00bfff"} textColor={"white"} btnLabel="Login" />
@@ -123,6 +126,13 @@ export default LoginNew;
 
 
 const styles = StyleSheet.create({
+
+    backdrop: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     container: {
         height: Dimensions.get('window').height,
         justifyContent: 'center', alignItems: 'center'

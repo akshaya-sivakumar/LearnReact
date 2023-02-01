@@ -97,9 +97,10 @@ export function otpValidation(otp: string): any {
                     infoMsg);
             }
 
-
+            console.warn(JSON.stringify(data))
             dispatch({ type: 'FETCH_DATA_SUCCESS', payload: JSON.stringify(data) });
         } catch (error) {
+            console.warn(error)
             dispatch({ type: 'FETCH_DATA_ERROR', payload: error });
         }
     };

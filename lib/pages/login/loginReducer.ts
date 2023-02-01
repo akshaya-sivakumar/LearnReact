@@ -10,6 +10,9 @@ const initialState: LoginState = {
 
 export const loginReducer = (state = initialState, action: LoginAction) => {
     switch (action.type) {
+
+        case 'FETCH_DATA_RESET':
+            return { ...state, loading: false, success: false, error: null };
         case 'FETCH_DATA_START':
             return { ...state, loading: true, success: false };
         case 'FETCH_DATA_SUCCESS':

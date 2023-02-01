@@ -10,6 +10,9 @@ const initialState: OtpState = {
 
 export const otpreducer = (state = initialState, action: OtpAction) => {
     switch (action.type) {
+
+        case 'FETCH_DATA_RESET':
+            return { ...state, loading: false, success: false, error: null };
         case 'FETCH_DATA_START':
             return { ...state, loading: true };
         case 'FETCH_DATA_SUCCESS':
