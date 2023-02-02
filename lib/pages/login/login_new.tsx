@@ -40,7 +40,7 @@ const LoginNew = () => {
 
         }
         if (success) {
-         
+
             navigation.navigate("Otp", {
                 mobile: mobileNumber,
 
@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     codeInput: {
+        color: "black",
         borderRadius: 10,
 
         height: 40, width: 50,
@@ -152,6 +153,7 @@ const styles = StyleSheet.create({
         borderWidth: 1.5
     },
     mobileInput: {
+        color: "black",
         borderRadius: 10,
         marginLeft: 10,
         height: 40, width: 200,
