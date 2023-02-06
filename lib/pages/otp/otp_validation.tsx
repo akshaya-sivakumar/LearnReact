@@ -105,7 +105,10 @@ const OtpValidation = () => {
                         maxLength={1}
                         defaultValue={pin[index]}
 
-
+                        onKeyPress={(e) => {
+                            if (e.nativeEvent.key === 'Backspace' && index !== 0)
+                                inputs.current[index - 1]?.focus();
+                        }}
                         textAlign={'center'}
                         keyboardType="number-pad"
                         ref={input => (inputs.current[index] = input!)}
