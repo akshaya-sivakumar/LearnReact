@@ -1,7 +1,8 @@
 import { Provider } from 'react-redux';
 import LoginNew from './login/login_new';
 import OtpValidation from './otp/otp_validation';
-import { loginstore, otpstore, store } from './store';
+import SocketScreen from './socket_ui/socket_page';
+import { loginstore, otpstore, socketstore, store } from './store';
 import Watchlist from './watchlist/watchlist';
 
 export const WatchlistPage = () => {
@@ -28,6 +29,18 @@ export const OtpPage = () => {
         <Provider store={otpstore}>
 
             <OtpValidation />
+
+        </Provider>
+
+
+    );
+};
+
+export const SocketPage = () => {
+    return (
+        <Provider store={socketstore}>
+
+            <SocketScreen />
 
         </Provider>
 

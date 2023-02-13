@@ -119,6 +119,7 @@ function Watchlist() {
             </View>
             <View>
 
+
                 {data?.map((item, index) => (
                     <View key={index} style={{ paddingHorizontal: 20 }}>
                         <ExpandableComponent

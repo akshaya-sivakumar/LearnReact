@@ -23,6 +23,10 @@ export function fetchData(): any {
         } catch (error) {
             dispatch({ type: 'FETCH_DATA_ERROR', payload: error });
         }
+
+
+
+
     };
 }
 
@@ -105,3 +109,41 @@ export function otpValidation(otp: string): any {
         }
     };
 }
+
+
+export function initializeWebSocket(): any {
+    return async (dispatch: any) => {
+        dispatch({ type: "WEBSOCKET_INITIALIZE" });
+        try {
+
+
+
+            const ws = new WebSocket("wss://ws.finnhub.io?token=cfkuphhr01qj7ds2r740cfkuphhr01qj7ds2r74g");
+
+
+            ws.onopen = () => {
+                console.log("opened")
+                ws.send(JSON.stringify({ "type": "subscribe", "symbol": "BINANCE:BTCUSDT" }))
+                dispatch({ type: "WEBSOCKET_INITIALIZE" });
+            };
+            ws.onclose = () => {
+                dispatch({ type: "WEBSOCKET_ERROR" });
+            };
+            ws.onerror = (error) => {
+                dispatch({ type: "WEBSOCKET_ERROR", payload: "error" });
+            };
+            ws.onmessage = (message) => {
+                var data = message.data;
+
+                dispatch({ type: "WEBSOCKET_MESSAGE", payload: data });
+            };
+
+
+        } catch (e) {
+            console.warn("catch error");
+            dispatch({ type: "WEBSOCKET_ERROR", payload: "error" });
+        }
+
+    };
+}
+
