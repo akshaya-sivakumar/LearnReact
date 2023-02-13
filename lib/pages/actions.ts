@@ -133,7 +133,7 @@ export function initializeWebSocket(): any {
                 dispatch({ type: "WEBSOCKET_ERROR", payload: "error" });
             };
             ws.onmessage = (message) => {
-                var data = message.data;
+                var data = JSON.parse(message.data);
 
                 dispatch({ type: "WEBSOCKET_MESSAGE", payload: data });
             };

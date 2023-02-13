@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 import { initializeWebSocket } from '../actions';
-import { store } from '../store';
+import { socketstore } from '../store';
 import { SocketState } from './socket_types';
 
 
@@ -18,7 +18,7 @@ function SocketScreen() {
 
 
     React.useEffect(() => {
-        store.dispatch(initializeWebSocket())
+        socketstore.dispatch(initializeWebSocket())
 
 
 
@@ -41,13 +41,7 @@ function SocketScreen() {
 
 
 
-    if (error) {
-        return (
-            <View style={styles.container}>
-                <Text style={styles.watchlistHeader}>error</Text>
-            </View>
-        );
-    }
+
 
     if (loading) {
         return (
@@ -71,7 +65,7 @@ function SocketScreen() {
             <View>
 
                 <Text style={{ fontSize: 20 }}>
-                    {data ?? "akshaya"}
+                    {data !== null ? JSON.stringify(data.data[0].p) : "no data"}
                 </Text>
 
             </View>
